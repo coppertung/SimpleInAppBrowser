@@ -21,6 +21,7 @@ class InAppBrowserView: UIView, InAppBrowserDelegate, InAppBrowserNavigationBarD
     
     // private var webView: UIWebView!
     private var webView: WKWebView!
+    var rootVC: UIViewController!
     
     /**
      *
@@ -123,11 +124,13 @@ class InAppBrowserView: UIView, InAppBrowserDelegate, InAppBrowserNavigationBarD
      *
      * To show the in-app browser.
      *
+     * - Parameter rootVC: The UIViewController containing the in-app browser.
      * - Parameter superview: The superview that the in-app browser shown at.
      *
     */
-    func show(at superview: UIView? = nil) {
+    func show(_ rootVC: UIViewController, at superview: UIView? = nil) {
         
+        self.rootVC = rootVC
         if superview == nil {
             if let window = UIApplication.shared.keyWindow {
                 self.frame = CGRect(x: 0, y: 0, width: window.frame.width, height: window.frame.height)
@@ -270,13 +273,65 @@ class InAppBrowserView: UIView, InAppBrowserDelegate, InAppBrowserNavigationBarD
 
 extension InAppBrowserView: WKUIDelegate, WKNavigationDelegate {
     
-    // this handles target=_blank links by opening them in the same view
+    // This handles target=_blank links by opening them in the same view
     func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         
         if navigationAction.targetFrame == nil {
             webView.load(navigationAction.request)
         }
         return nil
+        
+    }
+    
+    // This handles 3 optional functions for alert dialog of webview
+    
+    func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
+        
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: {
+            (action) in
+            completionHandler()
+        }))
+        self.rootVC.present(alertController, animated: true, completion: nil)
+        
+    }
+    
+    func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
+        
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: {
+            (action) in
+            completionHandler(true)
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: {
+            (action) in
+            completionHandler(false)
+        }))
+        self.rootVC.present(alertController, animated: true, completion: nil)
+        
+    }
+    
+    func webView(_ webView: WKWebView, runJavaScriptTextInputPanelWithPrompt prompt: String, defaultText: String?, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (String?) -> Void) {
+        
+        let alertController = UIAlertController(title: nil, message: prompt, preferredStyle: .alert)
+        alertController.addTextField {
+            (textField) in
+            textField.text = defaultText
+        }
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: {
+            (action) in
+            if let text = alertController.textFields?.first?.text {
+                completionHandler(text)
+            }
+            else {
+                completionHandler(defaultText)
+            }
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: {
+            (action) in
+            completionHandler(nil)
+        }))
+        self.rootVC.present(alertController, animated: true, completion: nil)
         
     }
     
