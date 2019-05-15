@@ -1,7 +1,7 @@
 import UIKit
 import Alamofire
 
-class InAppBrowserView: UIView, InAppBrowserDelegate, InAppBrowserNavigationBarDelegate {
+class InAppBrowserView: UIView, InAppBrowserDelegate, InAppBrowserNavigationBarDelegate, InAppBrowserProgressBarDelegate {
 
     // MARK: Properties
     
@@ -47,6 +47,7 @@ class InAppBrowserView: UIView, InAppBrowserDelegate, InAppBrowserNavigationBarD
             updateNavigationBarContent()
         }
     }
+    var progressBarDelegate: InAppBrowserProgressBarDelegate?
     /**
      *
      * This is the WKUIDelegate of the webview.
@@ -129,13 +130,13 @@ class InAppBrowserView: UIView, InAppBrowserDelegate, InAppBrowserNavigationBarD
         
         if superview == nil {
             if let window = UIApplication.shared.keyWindow {
+                self.frame = CGRect(x: 0, y: 0, width: window.frame.width, height: window.frame.height)
                 window.addSubview(self)
-                self.frame = window.frame
             }
         }
         else {
+            self.frame = CGRect(x: 0, y: 0, width: superview!.frame.width, height: superview!.frame.height)
             superview!.addSubview(self)
-            self.frame = superview!.frame
         }
         self.isNavigationBarShown = (delegate ?? self).isNavigationBarShown()
         self.isProgressBarShown = (delegate ?? self).isProgressBarShown()
@@ -210,6 +211,7 @@ class InAppBrowserView: UIView, InAppBrowserDelegate, InAppBrowserNavigationBarD
         if keyPath == "estimatedProgress" {
             self.progressView.progress = Float(self.webView.estimatedProgress)
             self.progressView.isHidden = self.progressView.progress >= 1
+            (self.progressBarDelegate ?? self).onLoadProgress(self, progress: CGFloat(self.progressView.progress))
         }
         
     }
