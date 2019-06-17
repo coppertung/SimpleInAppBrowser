@@ -131,6 +131,12 @@ extension InAppBrowserDelegate {
         
         container.addSubview(webView)
         
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint(item: webView, attribute: .top, relatedBy: .equal, toItem: container, attribute: .top, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: webView, attribute: .bottom, relatedBy: .equal, toItem: container, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: webView, attribute: .leading, relatedBy: .equal, toItem: container, attribute: .leading, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: webView, attribute: .trailing, relatedBy: .equal, toItem: container, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
+        
         return webView
         
     }

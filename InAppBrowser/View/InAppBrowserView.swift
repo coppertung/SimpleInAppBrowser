@@ -140,6 +140,11 @@ class InAppBrowserView: UIView, InAppBrowserDelegate, InAppBrowserNavigationBarD
         else {
             self.frame = CGRect(x: 0, y: 0, width: superview!.frame.width, height: superview!.frame.height)
             superview!.addSubview(self)
+            self.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: superview!, attribute: .top, multiplier: 1, constant: 0).isActive = true
+            NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: superview!, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
+            NSLayoutConstraint(item: self, attribute: .leading, relatedBy: .equal, toItem: superview!, attribute: .leading, multiplier: 1, constant: 0).isActive = true
+            NSLayoutConstraint(item: self, attribute: .trailing, relatedBy: .equal, toItem: superview!, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
         }
         self.isNavigationBarShown = (delegate ?? self).isNavigationBarShown()
         self.isProgressBarShown = (delegate ?? self).isProgressBarShown()
@@ -212,7 +217,7 @@ class InAppBrowserView: UIView, InAppBrowserDelegate, InAppBrowserNavigationBarD
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         if keyPath == "estimatedProgress" {
-            self.progressView.progress = Float(self.webView.estimatedProgress)
+            self.progressView.setProgress(Float(self.webView.estimatedProgress), animated: true)
             self.progressView.isHidden = self.progressView.progress >= 1
             (self.progressBarDelegate ?? self).onLoadProgress(self, progress: CGFloat(self.progressView.progress))
         }
