@@ -14,9 +14,10 @@ protocol InAppBrowserDelegate {
      * - Parameter httpMethod: HTTP Method, stored as Alamofire.HTTPMethod. Support Get (.get) and Post (.post) Method only by defualt.
      * - Parameter params: Parameters of the http request.
      * - Parameter enableJavaScript: Does the webview enable javascript being invoked?
+     * - Parameter allowInlineMedia: Does the inline media in webview is allowed?
      *
     */
-    func loadWebView(_ browser: InAppBrowserView, url: String, container: UIView, httpMethod: HTTPMethod, params: [String: AnyObject]?, enableJavaScript: Bool) -> WKWebView?
+    func loadWebView(_ browser: InAppBrowserView, url: String, container: UIView, httpMethod: HTTPMethod, params: [String: AnyObject]?, enableJavaScript: Bool, allowInlineMedia: Bool) -> WKWebView?
     // func loadWebView(_ browser: InAppBrowserView, url: String, container: UIView, httpMethod: HTTPMethod, params: [String: AnyObject]?) -> UIWebView?
     /**
      *
@@ -90,12 +91,19 @@ extension InAppBrowserDelegate {
     }
     */
     
-    func loadWebView(_ browser: InAppBrowserView, url: String, container: UIView, httpMethod: HTTPMethod, params: [String: AnyObject]?, enableJavaScript: Bool = true) -> WKWebView? {
+    func loadWebView(_ browser: InAppBrowserView, url: String, container: UIView, httpMethod: HTTPMethod, params: [String: AnyObject]?, enableJavaScript: Bool = true, allowInlineMedia: Bool = true) -> WKWebView? {
         
         let preferences = WKPreferences()
         preferences.javaScriptEnabled = enableJavaScript
         let configuration = WKWebViewConfiguration()
         configuration.preferences = preferences
+        configuration.allowsInlineMediaPlayback = allowInlineMedia
+        if #available(iOS 10.0, *) {
+            configuration.mediaTypesRequiringUserActionForPlayback = []
+        } else {
+            // Fallback on earlier versions
+            configuration.mediaPlaybackRequiresUserAction = false
+        }
         let webView = WKWebView(frame: CGRect(x: 0, y: 0, width: container.frame.size.width, height: container.frame.size.height), configuration: configuration)
         
         var urlString = url

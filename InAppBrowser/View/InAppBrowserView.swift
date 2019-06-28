@@ -160,9 +160,10 @@ class InAppBrowserView: UIView, InAppBrowserDelegate, InAppBrowserNavigationBarD
      * - Parameter httpMethod: HTTP Method, stored as Alamofire.HTTPMethod. Support Get (.get) and Post (.post) Method only by defualt. Noted that relative delegate function (InAppBrowserDelegate.loadWebView) should be extended if other methods are needed.
      * - Parameter params: Parameters of the http request.
      * - Parameter enableJavaScript: Does the webview enable javascript being invoked? Default will be true.
+     * - Parameter allowInlineMedia: Does the inline media in webview is allowed? Default will be true.
      *
      */
-    func load(_ url: String, httpMethod: HTTPMethod, params: [String: AnyObject]? = nil, enableJavaScript: Bool = true) {
+    func load(_ url: String, httpMethod: HTTPMethod, params: [String: AnyObject]? = nil, enableJavaScript: Bool = true, allowInlineMedia: Bool = true) {
         
         self.url = url
         self.httpMethod = httpMethod
@@ -183,7 +184,7 @@ class InAppBrowserView: UIView, InAppBrowserDelegate, InAppBrowserNavigationBarD
             "room_label": "DePK10".lowercased()] as [String: AnyObject]
         */
         
-        self.webView = (delegate ?? self).loadWebView(self, url: self.url, container: self.mainView, httpMethod: self.httpMethod, params: self.params, enableJavaScript: enableJavaScript)
+        self.webView = (delegate ?? self).loadWebView(self, url: self.url, container: self.mainView, httpMethod: self.httpMethod, params: self.params, enableJavaScript: enableJavaScript, allowInlineMedia: allowInlineMedia)
         self.webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
         self.webView.uiDelegate = self.wkUIDelegate
         
