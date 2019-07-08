@@ -209,7 +209,7 @@ class InAppBrowserView: UIView, InAppBrowserDelegate, InAppBrowserNavigationBarD
     func dismiss() {
         
         self.removeFromSuperview()
-        (delegate ?? self).onDestory(self)
+        (delegate ?? self).onDestroy(self)
         
     }
     

@@ -41,7 +41,7 @@ protocol InAppBrowserDelegate {
      * - Parameter browser: Current InAppBrowserView.
      *
     */
-    func onDestory(_ browser: InAppBrowserView)
+    func onDestroy(_ browser: InAppBrowserView)
     
 }
 
@@ -161,6 +161,6 @@ extension InAppBrowserDelegate {
         
     }
     
-    func onDestory(_ browser: InAppBrowserView) { }
+    func onDestroy(_ browser: InAppBrowserView) { }
     
 }
