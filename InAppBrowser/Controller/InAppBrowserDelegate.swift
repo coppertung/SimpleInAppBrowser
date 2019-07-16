@@ -11,24 +11,23 @@ protocol InAppBrowserDelegate {
      * - Parameter browser: Current InAppBrowserView.
      * - Parameter url: URL string.
      * - Parameter container: Container view.
-     * - Parameter httpMethod: HTTP Method, stored as Alamofire.HTTPMethod. Support Get (.get) and Post (.post) Method only by defualt.
+     * - Parameter httpMethod: HTTP Method, stored as Alamofire.HTTPMethod. Support Get (.get) and Post (.post) Method only by default.
      * - Parameter params: Parameters of the http request.
      * - Parameter enableJavaScript: Does the webview enable javascript being invoked?
      * - Parameter allowInlineMedia: Does the inline media in webview is allowed?
      *
     */
     func loadWebView(_ browser: InAppBrowserView, url: String, container: UIView, httpMethod: HTTPMethod, params: [String: AnyObject]?, enableJavaScript: Bool, allowInlineMedia: Bool) -> WKWebView?
-    // func loadWebView(_ browser: InAppBrowserView, url: String, container: UIView, httpMethod: HTTPMethod, params: [String: AnyObject]?) -> UIWebView?
     /**
      *
-     * Return whether is the progress bar of in-app browser is shown or not.
+     * Return whether the progress bar of in-app browser is shown or not.
      * False will be returned by default.
      *
      */
     func isProgressBarShown() -> Bool
     /**
      *
-     * Return whether is the navigation bar of in-app browser is shown or not.
+     * Return whether the navigation bar of in-app browser is shown or not.
      * True will be returned by default.
      *
      */
@@ -46,50 +45,6 @@ protocol InAppBrowserDelegate {
 }
 
 extension InAppBrowserDelegate {
-    
-    /*
-    func loadWebView(_ browser: InAppBrowserView, url: String, container: UIView, httpMethod: HTTPMethod, params: [String: AnyObject]? = nil) -> UIWebView? {
-        
-        let webView = UIWebView(frame: CGRect(x: 0, y: 0, width: container.frame.size.width, height: container.frame.size.height))
-        var urlString = url
-        
-        switch httpMethod {
-        case .get:
-            if params != nil {
-                urlString += "?"
-                for (key, value) in params! {
-                    urlString += "\(key)=\(value)"
-                    urlString += "&"
-                }
-                urlString.remove(at: urlString.lastIndex(of: "&")!)
-            }
-            var request = URLRequest(url: URL(string: urlString)!)
-            request.httpMethod = "GET"
-            webView.loadRequest(request)
-        case .post:
-            var request = URLRequest(url: URL(string: urlString)!)
-            request.httpMethod = "POST"
-            if params != nil, let postData = try? JSONSerialization.data(withJSONObject: params!, options: []) {
-                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-                request.httpBody = postData
-            }
-            webView.loadRequest(request)
-        default:
-            // not supporting other methods, can be extend later
-            return nil
-        }
-        
-        webView.scrollView.isScrollEnabled = true
-        webView.scrollView.alwaysBounceVertical = false
-        webView.scrollView.bounces = false
-        
-        webView.delegate = self
-        
-        container.addSubview(webView)
-        return webView
-        
-    }
-    */
     
     func loadWebView(_ browser: InAppBrowserView, url: String, container: UIView, httpMethod: HTTPMethod, params: [String: AnyObject]?, enableJavaScript: Bool = true, allowInlineMedia: Bool = true) -> WKWebView? {
         

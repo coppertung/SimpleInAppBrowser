@@ -23,7 +23,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7CJ-gN-79G">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="360" height="44"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wtz-39-CeK">
                                             <rect key="frame" x="0.0" y="11" width="44" height="22"/>
@@ -36,13 +36,13 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Td3-mi-XKf">
-                                            <rect key="frame" x="44" y="0.0" width="291" height="44"/>
+                                            <rect key="frame" x="44" y="0.0" width="276" height="44"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FVc-hf-cqU">
-                                            <rect key="frame" x="335" y="2" width="40" height="40"/>
+                                            <rect key="frame" x="320" y="2" width="40" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="awS-ep-OTW"/>
                                                 <constraint firstAttribute="width" secondItem="FVc-hf-cqU" secondAttribute="height" multiplier="1:1" id="paC-oT-pV7"/>
@@ -60,7 +60,7 @@
                                 <constraint firstAttribute="bottom" secondItem="7CJ-gN-79G" secondAttribute="bottom" id="b4c-kd-iQP"/>
                                 <constraint firstAttribute="height" constant="44" id="f1Q-3E-ecr"/>
                                 <constraint firstItem="7CJ-gN-79G" firstAttribute="leading" secondItem="g0N-Hy-M1L" secondAttribute="leading" id="lbF-dU-AZT"/>
-                                <constraint firstAttribute="trailing" secondItem="7CJ-gN-79G" secondAttribute="trailing" id="qIv-2J-672"/>
+                                <constraint firstAttribute="trailing" secondItem="7CJ-gN-79G" secondAttribute="trailing" constant="15" id="qIv-2J-672"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nsz-cD-vQo">

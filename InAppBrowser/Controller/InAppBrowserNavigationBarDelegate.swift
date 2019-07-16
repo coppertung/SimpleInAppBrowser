@@ -14,8 +14,9 @@ protocol InAppBrowserNavigationBarDelegate {
     /**
      *
      * Set up the top-left button.
+     * Back Button will be shown as default.
      *
-     * - Parameter button: The top-left button
+     * - Parameter button: The top-left button.
      *
      */
     func topLeftButton(_ button: UIButton)
@@ -24,7 +25,7 @@ protocol InAppBrowserNavigationBarDelegate {
      * Set up the top-right button.
      * The button will be hidden as default.
      *
-     * - Parameter button: The top-right button
+     * - Parameter button: The top-right button.
      *
     */
     func topRightButton(_ button: UIButton)
@@ -33,7 +34,7 @@ protocol InAppBrowserNavigationBarDelegate {
      * Set up the size of the right-top button.
      * 40.0 will be returned as default.
      *
-     * - Parameter button: The top-right button
+     * - Parameter button: The top-right button.
      *
      */
     func topRightButtonSize(_ button: UIButton) -> CGFloat

@@ -125,7 +125,7 @@ class InAppBrowserView: UIView, InAppBrowserDelegate, InAppBrowserNavigationBarD
      * To show the in-app browser.
      *
      * - Parameter rootVC: The UIViewController containing the in-app browser.
-     * - Parameter superview: The superview that the in-app browser shown at.
+     * - Parameter superview: The superview that the in-app browser shown at. The in-app browser will show at UIApplication.shared.keyWindow if the superview is nil. It will be nil by default.
      *
     */
     func show(_ rootVC: UIViewController, at superview: UIView? = nil) {
@@ -157,8 +157,8 @@ class InAppBrowserView: UIView, InAppBrowserDelegate, InAppBrowserNavigationBarD
      * To load the webview.
      *
      * - Parameter url: URL String.
-     * - Parameter httpMethod: HTTP Method, stored as Alamofire.HTTPMethod. Support Get (.get) and Post (.post) Method only by defualt. Noted that relative delegate function (InAppBrowserDelegate.loadWebView) should be extended if other methods are needed.
-     * - Parameter params: Parameters of the http request.
+     * - Parameter httpMethod: HTTP Method, stored as Alamofire.HTTPMethod. Support Get (.get) and Post (.post) Method only by default. Noted that relative delegate function (InAppBrowserDelegate.loadWebView) should be extended if other methods are needed.
+     * - Parameter params: Parameters of the http request. It will be nil by default.
      * - Parameter enableJavaScript: Does the webview enable javascript being invoked? Default will be true.
      * - Parameter allowInlineMedia: Does the inline media in webview is allowed? Default will be true.
      *
